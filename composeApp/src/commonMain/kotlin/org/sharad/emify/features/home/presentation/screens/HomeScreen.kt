@@ -52,6 +52,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.sharad.emify.core.ui.SharedComponents.BottomButton
+import org.sharad.emify.core.ui.SharedComponents.MandateItemFailed
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.core.ui.theme.appGray
@@ -120,7 +121,7 @@ fun MandateList() {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     repeat(4) {
-                        MandateItem(mandate = mandateList)
+                        MandateItemFailed(mandate = mandateList)
                         if (it < 3) {
                             HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
@@ -155,58 +156,6 @@ fun MandateList() {
     }
 }
 
-@Composable
-fun MandateItem(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
-            contentAlignment = Alignment.Center) {
-                Text(
-                    text = mandate.name[0].toString(),
-                    fontSize = 22.sp,
-                    fontFamily = Poppins,
-                )
-        }
-
-        Column(modifier=Modifier.weight(1f)) {
-            Text(
-                text=mandate.name,
-                style = MaterialTheme.typography.bodyMedium,
-                lineHeight = 16.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text=mandate.content,
-                color = Color(0xff9A9A9ABB).copy(alpha = 0.73f),
-                fontSize = 12.sp,
-                lineHeight = 12.sp,
-                fontFamily = Poppins,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-            )
-        }
-
-        Column(horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text="₹${mandate.paid}/₹${mandate.unpaid}",
-                lineHeight = 14.sp,
-                style = MaterialTheme.typography.bodySmall
-                )
-            Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffD9D9D9))){
-                Text(mandate.status,
-                    fontSize = 8.sp,
-                    lineHeight = 8.sp,
-                    fontFamily = Poppins,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.align(Alignment.Center).padding(vertical = 4.dp, horizontal = 16.dp)
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun Scroller(pagerState: PagerState) {

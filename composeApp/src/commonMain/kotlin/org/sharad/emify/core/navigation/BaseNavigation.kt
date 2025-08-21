@@ -13,6 +13,7 @@ import androidx.navigation.toRoute
 import org.koin.compose.getKoin
 import org.sharad.emify.core.util.Prefs
 import org.sharad.emify.features.home.presentation.screens.HomeScreen
+import org.sharad.emify.features.home.presentation.screens.ProfileDrawer
 import org.sharad.emify.features.login.presentation.screens.GetStartedScreen
 import org.sharad.emify.features.login.presentation.screens.OnboardingScreen
 import org.sharad.emify.features.login.presentation.screens.OtpScreen
@@ -57,6 +58,7 @@ fun BaseNavigation(padding: PaddingValues) {
         composable<Routes_HomeScreen>(enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
             exitTransition = { slideOutHorizontally { -it } }){
             HomeScreen()
+//            ProfileDrawer()
         }
     }
 }
