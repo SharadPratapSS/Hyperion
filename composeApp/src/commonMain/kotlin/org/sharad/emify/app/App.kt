@@ -15,7 +15,9 @@ import org.sharad.emify.core.ui.theme.EmiFyTheme
 fun App() {
     EmiFyTheme{
         Scaffold{
-            Box(modifier=Modifier.fillMaxSize().imePadding().background(Color(0xFFF7F7F7))){ BaseNavigation(padding = it) }
+            Box(modifier=Modifier.fillMaxSize().imePadding().background(Color(0xFFF7F7F7))){
+                BaseNavigation(padding = it)
+            }
         }
     }
 }

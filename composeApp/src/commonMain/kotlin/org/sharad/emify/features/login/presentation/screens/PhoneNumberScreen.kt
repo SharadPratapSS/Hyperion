@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -48,6 +50,7 @@ import emify.composeapp.generated.resources.flag_in
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.sharad.emify.core.navigation.Routes_OTPInput
+import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.features.login.presentation.viewmodel.PhoneNumberScreenViewModel
@@ -58,7 +61,9 @@ fun PhoneNumberScreen(navController: NavHostController) {
     val number by viewModel.number.collectAsStateWithLifecycle()
     val isChecked by viewModel.isChecked.collectAsStateWithLifecycle()
     val isEnabled by viewModel.isEnabled.collectAsStateWithLifecycle()
-
+    val loading by viewModel.loading.collectAsStateWithLifecycle()
+    val shoErrorMessage by viewModel.showErrorMessage.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     val interactionText= buildAnnotatedString {
         append("By giving your information, you agree to our ")
@@ -214,6 +219,14 @@ fun PhoneNumberScreen(navController: NavHostController) {
                         }
                     }
                 }
+                errorMessage?.let {
+                    Text(
+                        text = "${it.capitalize()} Error. Please Try Again Later",
+                        modifier = Modifier.fillMaxWidth(),
+                        style = MaterialTheme.typography.displayLarge,
+                        color = Color.Red.copy(alpha = 0.6f)
+                    )
+                }
             }
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -236,12 +249,15 @@ fun PhoneNumberScreen(navController: NavHostController) {
                 BottomButton(
                     text = "Continue",
                     onClick = {
-                        navController.navigate(Routes_OTPInput)
+                        viewModel.submitNumber(navController)
                     },
-                    enabled = isEnabled
+                    enabled = isEnabled,
+                    showLoader = loading
                 )
             }
         }
+
+
     }
 }
 

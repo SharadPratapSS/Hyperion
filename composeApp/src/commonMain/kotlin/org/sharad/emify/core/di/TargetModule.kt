@@ -7,19 +7,26 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import org.sharad.emify.core.data.local.roomdb.getRoomDB
 import org.sharad.emify.core.networking.createHttpClient
-import org.sharad.emify.features.login.presentation.screens.OnboardingScreen
+import org.sharad.emify.core.util.Prefs
 import org.sharad.emify.features.login.presentation.viewmodel.OnboardingViewModel
 import org.sharad.emify.features.login.presentation.viewmodel.OtpScreenViewModel
 import org.sharad.emify.features.login.presentation.viewmodel.PhoneNumberScreenViewModel
+import org.sharad.emify.core.networking.repository.LoginRepository
+import org.sharad.emify.core.networking.repository.ProfileRepository
+import org.sharad.emify.core.util.AuthTokenNavigation
 
 expect val targetModule: Module
 
 val sharedModule= module{
     single { getRoomDB(get()) }
     single { createHttpClient(get()) }
-    viewModel{PhoneNumberScreenViewModel()}
-    viewModel{ OtpScreenViewModel()}
-    viewModel{ OnboardingViewModel() }
+    single { Prefs(get()) }
+    single { AuthTokenNavigation(get()) }
+    single { LoginRepository(get(),get()) }
+    single { ProfileRepository(get(), get()) }
+    viewModel{PhoneNumberScreenViewModel(get(),get())}
+    viewModel{ OtpScreenViewModel(get(),get(),get())}
+    viewModel{ OnboardingViewModel(get(),get()) }
 }
 
 fun initializeKoin(

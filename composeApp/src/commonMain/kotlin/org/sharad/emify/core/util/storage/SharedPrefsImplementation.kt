@@ -1,7 +1,7 @@
 package org.sharad.emify.core.util.storage
 
 expect class SharedPrefsImplementation(context: Any?=null): SharedPrefsInterface {
-    override fun setString(key: String, value: String)
+    override fun setString(key: String, value: String?)
     override fun getString(key: String): String?
     override fun setInt(key: String, value: Int)
     override fun getInt(key: String): Int?

@@ -59,6 +59,8 @@ import emify.composeapp.generated.resources.info_icon
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.sharad.emify.core.navigation.Routes_WelcomeLoader
+import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.core.ui.theme.appGray
@@ -74,6 +76,7 @@ fun OnboardingScreen(navController: NavController){
     val lastName by viewModel.lastName.collectAsStateWithLifecycle()
 
     val isEnabled by viewModel.isEnabled.collectAsStateWithLifecycle()
+    val loading by viewModel.loader.collectAsStateWithLifecycle()
 
     val focusRequester= remember { FocusRequester() }
     val focusManager= LocalFocusManager.current
@@ -118,7 +121,7 @@ fun OnboardingScreen(navController: NavController){
                         Box(
                             modifier = Modifier.fillMaxSize()
                                 .clickable(onClick = {
-                                    navController.popBackStack()
+                                    viewModel.resetLogin(navController)
                                 }),
                             contentAlignment = Alignment.Center
                         ) {
@@ -238,9 +241,10 @@ fun OnboardingScreen(navController: NavController){
                 BottomButton(
                     text = "Continue",
                     onClick = {
-
+                        viewModel.submitData(navController = navController)
                     },
-                    enabled = isEnabled
+                    enabled = isEnabled,
+                    showLoader = loading
                 )
             }
         }

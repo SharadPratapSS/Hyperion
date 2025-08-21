@@ -32,12 +32,12 @@ import org.sharad.emify.core.ui.theme.appBlue
 fun WelcomeLoader(navController: NavHostController) {
 
     LaunchedEffect(Unit){
-        var timer= 6
+        var timer= 3
         while (timer>0){
             delay(1000)
             timer--
         }
-        navController.navigate(Routes_HomeScreen)
+        navController.navigate(Routes_HomeScreen){popUpTo(0){inclusive=true} }
     }
 
     Box(modifier= Modifier.fillMaxSize(), contentAlignment = Alignment.Center){

@@ -5,7 +5,7 @@ interface SharedPrefsInterface {
     /**
      * Store a string value
      */
-    fun setString(key: String, value: String)
+    fun setString(key: String, value: String?)
 
     /**
      * Retrieve a string value

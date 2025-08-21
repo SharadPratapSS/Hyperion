@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -51,6 +52,12 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation(libs.ktor.client.okhttp)
+
+            implementation("com.google.firebase:firebase-installations:19.0.0")
+//            implementation(platform(libs.firebase.bom))
+//            implementation(libs.firebase.analytics)
+//            implementation(libs.firebase.messaging)
+//            implementation(libs.firebase.auth)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

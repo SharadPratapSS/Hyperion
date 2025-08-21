@@ -7,7 +7,7 @@ actual class SharedPrefsImplementation actual constructor(context: Any?) : Share
 
     val prefs= (context as Context).getSharedPreferences("EmiFy", Context.MODE_PRIVATE)
 
-    actual override fun setString(key: String, value: String) {
+    actual override fun setString(key: String, value: String?) {
         prefs.edit { putString(key, value) }
     }
 

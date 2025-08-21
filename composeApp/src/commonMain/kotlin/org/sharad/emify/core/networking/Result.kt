@@ -1,7 +1,6 @@
 package org.sharad.emify.core.networking
 
-
-sealed interface Result<out D, out E: Error> {
-    data class Success<out D>(val data: D): Result<D, Nothing>
-    data class Error<out E: org.sharad.emify.core.networking.Error>(val error: E): Result<Nothing, E>
+sealed class NetworkResponse<out T, out E> {
+    data class Success<out T>(val data: T): NetworkResponse<T, Nothing>()
+    data class Error<out E: org.sharad.emify.core.networking.Error>(val error: E): NetworkResponse<Nothing, E>()
 }

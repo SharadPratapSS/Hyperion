@@ -6,7 +6,7 @@ actual class SharedPrefsImplementation actual constructor(context: Any?) : Share
 
     private var userDefaults = NSUserDefaults.standardUserDefaults
 
-    actual override fun setString(key: String, value: String) = userDefaults.setObject(value, key)
+    actual override fun setString(key: String, value: String?) = userDefaults.setObject(value, key)
 
     actual override fun getString(key: String): String? = userDefaults.stringForKey(key)
 

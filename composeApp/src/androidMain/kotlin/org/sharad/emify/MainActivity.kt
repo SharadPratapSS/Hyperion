@@ -1,5 +1,6 @@
 package org.sharad.emify
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -8,7 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import org.koin.compose.getKoin
 import org.sharad.emify.app.App
+import org.sharad.emify.core.util.Prefs
+import org.sharad.emify.core.util.storage.SharedPrefsInterface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +23,6 @@ class MainActivity : ComponentActivity() {
             )
         )
         super.onCreate(savedInstanceState)
-
         setContent {
             App()
         }

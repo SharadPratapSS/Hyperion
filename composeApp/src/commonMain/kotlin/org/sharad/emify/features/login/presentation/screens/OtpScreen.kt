@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -52,18 +51,20 @@ import emify.composeapp.generated.resources.back_arrow
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
-import org.sharad.emify.core.navigation.Routes_OnboardingForm
+import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.core.ui.theme.appGray
 import org.sharad.emify.features.login.presentation.viewmodel.OtpScreenViewModel
 
 @Composable
-fun OtpScreen(navController: NavController){
+fun OtpScreen(navController: NavController, number: String, otpCode: String, userId: String){
 
     val viewModel: OtpScreenViewModel = koinViewModel()
     val otp by viewModel.otp.collectAsStateWithLifecycle()
     val isEnabled by viewModel.isEnabled.collectAsStateWithLifecycle()
+    val loading by viewModel.loader.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.error.collectAsStateWithLifecycle()
 
     var timer by remember{ mutableStateOf(60) }
 
@@ -76,6 +77,10 @@ fun OtpScreen(navController: NavController){
             delay(1000)
             timer--
         }
+    }
+
+    LaunchedEffect(Unit){
+        viewModel.updateOtp(otpCode)
     }
 
     Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter)
@@ -136,7 +141,7 @@ fun OtpScreen(navController: NavController){
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Text(
-                    text = "Enter the OTP sent to your mobile number (9988778565) to proceed.",
+                    text = "Enter the OTP sent to your mobile number ($number) to proceed.",
                     modifier = Modifier.fillMaxWidth(),
                     style = MaterialTheme.typography.displayLarge
                 )
@@ -177,6 +182,15 @@ fun OtpScreen(navController: NavController){
                         it()
                     }
                 }
+                errorMessage?.let {
+                    Spacer(modifier=Modifier.height(4.dp))
+                    Text(
+                        text = "${it.capitalize()} Error. Please Try Again Later",
+                        modifier = Modifier.fillMaxWidth(),
+                        style = MaterialTheme.typography.displayMedium,
+                        color = Color.Red.copy(alpha = 0.6f)
+                    )
+                }
                 Spacer(modifier=Modifier.height(4.dp))
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -204,9 +218,10 @@ fun OtpScreen(navController: NavController){
                 BottomButton(
                     text = "Continue",
                     onClick = {
-                        navController.navigate(Routes_OnboardingForm)
+                        viewModel.validateOtp(userId,navController)
                     },
-                    enabled = isEnabled
+                    enabled = isEnabled,
+                    showLoader = loading
                 )
             }
         }

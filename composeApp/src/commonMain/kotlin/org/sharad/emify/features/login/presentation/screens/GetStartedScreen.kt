@@ -30,6 +30,7 @@ import emify.composeapp.generated.resources.get_started_img
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.sharad.emify.core.navigation.Routes_PhoneNumberInput
+import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 
@@ -97,21 +98,5 @@ fun GetStartedScreen(navController: NavHostController) {
 
 }
 
-@Composable
-fun BottomButton(text: String, onClick: () -> Unit, enabled: Boolean) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        modifier=Modifier.fillMaxWidth().height(56.dp).padding(horizontal = 20.dp),
-        shape = RoundedCornerShape(15.dp),
-    ){
-        Text(text = text,
-            fontSize = 16.sp,
-            fontFamily = Poppins,
-            maxLines = 1,
-            modifier = Modifier.padding(horizontal = 16.dp)
-            )
-    }
-}
 
 

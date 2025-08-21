@@ -9,7 +9,11 @@ data object Routes_GetStarted
 data object Routes_PhoneNumberInput
 
 @Serializable
-data object Routes_OTPInput
+data class Routes_OTPInput(
+    val phoneNumber: String,
+    val otp: String,
+    val userId: String
+)
 
 @Serializable
 data object Routes_OnboardingForm
