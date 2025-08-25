@@ -1,5 +1,7 @@
 package org.sharad.emify.core.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,46 +21,97 @@ import org.sharad.emify.features.login.presentation.screens.OnboardingScreen
 import org.sharad.emify.features.login.presentation.screens.OtpScreen
 import org.sharad.emify.features.login.presentation.screens.PhoneNumberScreen
 import org.sharad.emify.features.login.presentation.screens.WelcomeLoader
+import org.sharad.emify.features.profile.presentation.Screens.BusinessDetailsScreen
 
 @Composable
 fun BaseNavigation(padding: PaddingValues) {
-    val navController= rememberNavController()
-    val prefs: Prefs= getKoin().get()
-    val userId= prefs.getUserId()
-    val isLogin= prefs.getLoginStatus()
+    val navController = rememberNavController()
+    val prefs: Prefs = getKoin().get()
+    val userId = prefs.getUserId()
+    val isLogin = prefs.getLoginStatus()
 
-    val start=if(userId==null){
+    val start = if (userId == null) {
         Routes_GetStarted
-    }else if(isLogin){
+    } else if (isLogin) {
         Routes_HomeScreen
-    }else{
+    } else {
         Routes_OnboardingForm
     }
 
-    NavHost(navController=navController, startDestination = start, modifier = Modifier.padding(padding)){
-        composable<Routes_GetStarted>{
-            GetStartedScreen(navController=navController)
+    NavHost(
+        navController = navController,
+        startDestination = start,
+        modifier = Modifier.padding(padding)
+    ) {
+        composable<Routes_GetStarted> {
+            GetStartedScreen(navController = navController)
         }
-        composable<Routes_PhoneNumberInput>{
-            PhoneNumberScreen(navController=navController)
+        composable<Routes_PhoneNumberInput> {
+            PhoneNumberScreen(navController = navController)
         }
-        composable<Routes_OTPInput>(enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
-            exitTransition = { slideOutHorizontally { -it } }){
-            val args=it.toRoute<Routes_OTPInput>()
-            OtpScreen(navController, number= args.phoneNumber, otpCode=args.otp, userId= args.userId)
+        composable<Routes_OTPInput>(
+            enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
+            exitTransition = { slideOutHorizontally { -it } }) {
+            val args = it.toRoute<Routes_OTPInput>()
+            OtpScreen(
+                navController,
+                number = args.phoneNumber,
+                otpCode = args.otp,
+                userId = args.userId
+            )
         }
-        composable<Routes_OnboardingForm>(enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
-            exitTransition = { slideOutHorizontally { -it } }){
+        composable<Routes_OnboardingForm>(
+            enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
+            exitTransition = { slideOutHorizontally { -it } }) {
             OnboardingScreen(navController)
         }
-        composable<Routes_WelcomeLoader>(enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
-            exitTransition = { slideOutHorizontally { -it } }){
+        composable<Routes_WelcomeLoader>(
+            enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
+            exitTransition = { slideOutHorizontally { -it } }) {
             WelcomeLoader(navController)
         }
-        composable<Routes_HomeScreen>(enterTransition = { slideInHorizontally { fullWidth -> fullWidth } },
-            exitTransition = { slideOutHorizontally { -it } }){
-            HomeScreen()
-//            ProfileDrawer()
+        composable<Routes_HomeScreen>() {
+            HomeScreen(navController)
+        }
+        composable<Routes_ProfileMenu>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                )
+            }) {
+            ProfileDrawer(navController)
+        }
+        composable<Routes_BusinessDetails>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            BusinessDetailsScreen(navController)
         }
     }
 }

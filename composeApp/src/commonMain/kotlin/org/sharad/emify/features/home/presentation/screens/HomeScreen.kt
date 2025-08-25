@@ -9,18 +9,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -34,14 +30,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import emify.composeapp.generated.resources.Res
 import emify.composeapp.generated.resources.loan_banner
 import emify.composeapp.generated.resources.notification_icon
@@ -50,12 +44,11 @@ import emify.composeapp.generated.resources.retail_banner
 import emify.composeapp.generated.resources.sub_banner
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.sharad.emify.core.navigation.Routes_ProfileMenu
 import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.SharedComponents.MandateItemFailed
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
-import org.sharad.emify.core.ui.theme.appGray
 import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.core.ui.theme.fadeGreen
 import org.sharad.emify.core.ui.theme.fadeOrange
@@ -66,7 +59,7 @@ import org.sharad.emify.core.ui.theme.headOrange
 import org.sharad.emify.core.ui.theme.headYellow
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavHostController) {
 
     val pagerState=rememberPagerState(
         0,
@@ -76,11 +69,10 @@ fun HomeScreen(){
     val name= "Sharad"
     Column(modifier = Modifier.fillMaxSize()){
         Column(
-            modifier = Modifier.weight(1f).padding( end = 20.dp, start=20.dp),
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier.weight(1f).padding( end = 20.dp, start=20.dp, top = 24.dp),
         ) {
 
-            ProfileBar(name = name)
+            ProfileBar(name = name, navController=navController)
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -114,10 +106,10 @@ fun MandateList() {
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
                 color = Color.White,
-                shadowElevation = 4.dp
+                shadowElevation = 2.dp
             ) {
                 Column(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 4.dp),
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 4.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     repeat(4) {
@@ -178,7 +170,7 @@ fun Scroller(pagerState: PagerState) {
 }
 
 @Composable
-fun ProfileBar(name: String) {
+fun ProfileBar(name: String, navController: NavHostController) {
     Row(modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically) {
@@ -192,6 +184,7 @@ fun ProfileBar(name: String) {
             Box(
                 modifier = Modifier.fillMaxSize()
                     .clickable(onClick = {
+                        navController.navigate(Routes_ProfileMenu)
                     }),
                 contentAlignment = Alignment.Center
             ) {

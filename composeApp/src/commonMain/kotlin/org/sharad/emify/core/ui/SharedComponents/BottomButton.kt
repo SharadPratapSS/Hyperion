@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import org.sharad.emify.core.ui.theme.Poppins
 
 @Composable
-fun BottomButton(text: String, onClick: () -> Unit, enabled: Boolean,showLoader:Boolean=false) {
+fun BottomButton(text: String, onClick: () -> Unit, enabled: Boolean=true,showLoader:Boolean=false) {
     Button(
         onClick = onClick,
         enabled = enabled,

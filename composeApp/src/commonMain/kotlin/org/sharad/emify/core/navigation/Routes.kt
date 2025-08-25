@@ -23,3 +23,9 @@ data object Routes_WelcomeLoader
 
 @Serializable
 data object Routes_HomeScreen
+
+@Serializable
+data object Routes_ProfileMenu
+
+@Serializable
+data object Routes_BusinessDetails
