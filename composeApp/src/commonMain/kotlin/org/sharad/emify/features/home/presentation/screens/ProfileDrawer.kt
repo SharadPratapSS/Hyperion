@@ -63,7 +63,9 @@ import emify.composeapp.generated.resources.upi_footer
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.sharad.emify.core.navigation.Routes_AboutEmifyMenu
 import org.sharad.emify.core.navigation.Routes_BusinessDetails
+import org.sharad.emify.core.navigation.Routes_HelpNSupport
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.core.ui.theme.f7Gray
@@ -95,8 +97,10 @@ fun ProfileOptionList(modifier: Modifier, navHostController: NavHostController){
         MenuOptions("KYC - Profile Verification", "Faster settlements & priority support", Res.drawable.icon_kyc,{}),
         MenuOptions("App Lock", "Add an extra layer of security", Res.drawable.icon_lock,{}),
         MenuOptions("Refer & Earn", "Invite friends to EMIFY & earn rewards!", Res.drawable.icon_refer,{}),
-        MenuOptions("About EMify", "Terms, privacy policy, and legal info", Res.drawable.icon_aboutus,{}),
-        MenuOptions("Help & Support", "FAQs and customer support at your fingertips", Res.drawable.icon_help,{})
+        MenuOptions("About EMify", "Terms, privacy policy, and legal info", Res.drawable.icon_aboutus,{navHostController.navigate(
+            Routes_AboutEmifyMenu)}),
+        MenuOptions("Help & Support", "FAQs and customer support at your fingertips", Res.drawable.icon_help,{navHostController.navigate(
+            Routes_HelpNSupport)})
     )
 
     Surface(

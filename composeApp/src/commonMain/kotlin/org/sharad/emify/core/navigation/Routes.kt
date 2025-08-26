@@ -29,3 +29,32 @@ data object Routes_ProfileMenu
 
 @Serializable
 data object Routes_BusinessDetails
+
+@Serializable
+data object Routes_AboutEmifyMenu
+
+@Serializable
+data object Routes_HelpNSupport
+
+@Serializable
+data object Routes_AboutUs
+
+@Serializable
+data object Routes_GreivancePolicy
+
+@Serializable
+data object Routes_PrivacyPolicy
+
+@Serializable
+data object Routes_TnC
+
+@Serializable
+data object Routes_FAQ
+
+@Serializable
+data object Routes_Guide
+
+@Serializable
+data object Routes_Report
+
+

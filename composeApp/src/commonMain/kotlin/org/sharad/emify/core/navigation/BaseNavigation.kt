@@ -21,7 +21,16 @@ import org.sharad.emify.features.login.presentation.screens.OnboardingScreen
 import org.sharad.emify.features.login.presentation.screens.OtpScreen
 import org.sharad.emify.features.login.presentation.screens.PhoneNumberScreen
 import org.sharad.emify.features.login.presentation.screens.WelcomeLoader
+import org.sharad.emify.features.profile.presentation.Screens.AboutEmifyScreen
+import org.sharad.emify.features.profile.presentation.Screens.AboutScreen
 import org.sharad.emify.features.profile.presentation.Screens.BusinessDetailsScreen
+import org.sharad.emify.features.profile.presentation.Screens.FAQScreen
+import org.sharad.emify.features.profile.presentation.Screens.GreivancePolicyScreen
+import org.sharad.emify.features.profile.presentation.Screens.GuideScreen
+import org.sharad.emify.features.profile.presentation.Screens.HelpSupportScreen
+import org.sharad.emify.features.profile.presentation.Screens.PrivacyPolicyScreen
+import org.sharad.emify.features.profile.presentation.Screens.ReportScreen
+import org.sharad.emify.features.profile.presentation.Screens.TnCScreen
 
 @Composable
 fun BaseNavigation(padding: PaddingValues) {
@@ -113,5 +122,195 @@ fun BaseNavigation(padding: PaddingValues) {
             }) {
             BusinessDetailsScreen(navController)
         }
+        composable<Routes_AboutEmifyMenu>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            AboutScreen(navController)
+        }
+
+        composable<Routes_AboutUs>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            AboutEmifyScreen(navController)
+        }
+
+        composable<Routes_GreivancePolicy>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            GreivancePolicyScreen(navController)
+        }
+
+
+        composable<Routes_PrivacyPolicy>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            PrivacyPolicyScreen(navController)
+        }
+
+        composable<Routes_TnC>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            TnCScreen(navController)
+        }
+
+        composable<Routes_HelpNSupport>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            HelpSupportScreen(navController)
+        }
+
+        composable<Routes_FAQ>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            FAQScreen(navController)
+        }
+
+        composable<Routes_Guide>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            GuideScreen(navController)
+        }
+
+        composable<Routes_Report>(
+            enterTransition = {
+                slideInHorizontally(
+                    animationSpec = tween(
+                        durationMillis = 500
+                    )
+                ) { fullWidth -> -fullWidth }
+            },
+            popEnterTransition = { EnterTransition.None},
+            exitTransition = { slideOutHorizontally { fullWidth -> fullWidth } },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(
+                        durationMillis = 600
+                    )
+                )
+            }) {
+            ReportScreen(navController)
+        }
+
     }
 }

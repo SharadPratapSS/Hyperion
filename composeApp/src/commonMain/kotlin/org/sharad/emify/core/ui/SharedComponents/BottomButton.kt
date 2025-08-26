@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.sp
 import org.sharad.emify.core.ui.theme.Poppins
 
 @Composable
-fun BottomButton(text: String, onClick: () -> Unit, enabled: Boolean=true,showLoader:Boolean=false) {
+fun BottomButton(text: String, onClick: () -> Unit, enabled: Boolean=true,showLoader:Boolean=false, modifier:Modifier=Modifier.padding(horizontal = 20.dp)) {
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier=Modifier.fillMaxWidth().height(56.dp).padding(horizontal = 20.dp),
+        modifier=modifier.fillMaxWidth().height(56.dp),
         shape = RoundedCornerShape(15.dp),
     ){
         Text(text = text,
