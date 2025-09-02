@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +34,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,10 +42,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import emify.composeapp.generated.resources.Res
+import emify.composeapp.generated.resources.check_sign
 import emify.composeapp.generated.resources.icon_gallery
 import emify.composeapp.generated.resources.icon_help
 import emify.composeapp.generated.resources.icon_issue
 import emify.composeapp.generated.resources.map
+import emify.composeapp.generated.resources.shape_circlefrizz
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.sharad.emify.core.navigation.Routes_FAQ
@@ -50,28 +55,32 @@ import org.sharad.emify.core.navigation.Routes_Guide
 import org.sharad.emify.core.navigation.Routes_Report
 import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.theme.Poppins
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.core.util.ChangeBackPress
 import org.sharad.emify.features.home.presentation.screens.TopBar
 import org.sharad.emify.features.profile.presentation.viewmodels.ReportScreenViewModel
 
 @Composable
-fun ReportScreen(navController: NavController){
+fun ReportScreen(navController: NavController) {
     val viewModel: ReportScreenViewModel = koinViewModel()
 
     val showSuccessDialog by viewModel.showSuccess.collectAsStateWithLifecycle()
 
-    Box(modifier=Modifier.fillMaxSize()){
-        if (showSuccessDialog){
+    Box(modifier = Modifier.fillMaxSize())
+    {
+
+        ReportScreeMain(
+            navController = navController,
+            showSuccessScreen = { viewModel.showSuccess() },
+            viewModel = viewModel
+        )
+
+        if (showSuccessDialog) {
             ReportScreenSuccess(
                 hideSuccessScreen = { viewModel.hideSuccess() },
                 viewModel = viewModel
             )
         }
-            ReportScreeMain(
-                navController = navController,
-                showSuccessScreen = { viewModel.showSuccess() },
-                viewModel = viewModel
-            )
 
     }
 }
@@ -82,7 +91,54 @@ fun ReportScreenSuccess(hideSuccessScreen:()->Unit,viewModel: ReportScreenViewMo
     Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.3f)),
         contentAlignment = Alignment.Center
     ){
+        Box(modifier=Modifier.fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .clip(RoundedCornerShape(14.dp))
+            .background(Color.White, RoundedCornerShape(14.dp)),
+            contentAlignment = Alignment.Center
+        ){
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 36.dp, vertical = 48.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Image(
+                        painter = painterResource(Res.drawable.shape_circlefrizz),
+                        contentDescription = "Success Icon",
+                        modifier = Modifier.size(64.dp)
+                    )
+                    Image(
+                        painter = painterResource(Res.drawable.check_sign),
+                        contentDescription = "Success Icon",
+                        modifier = Modifier.size(32.dp)
+                    )
 
+                }
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally){
+                    Text(
+                        "Your report has been filed!",
+                        fontFamily = Poppins,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Text(
+                        "An EMIfy associate will contact you within 48 hours.",
+                        fontFamily = Poppins,
+                        fontSize = 14.sp,
+                        lineHeight = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFF909090),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -92,18 +148,15 @@ fun ReportScreeMain(navController: NavController, showSuccessScreen:()->Unit,vie
     val reportText by viewModel.reportText.collectAsStateWithLifecycle()
     val selected by viewModel.selectedImage.collectAsStateWithLifecycle()
 
-    Box(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize().padding(top = 24.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
+        contentAlignment = Alignment.Center){
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         )
         {
             TopBar("Report an Issue", onBackClick = { navController.popBackStack() })
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text("Report your issue here",

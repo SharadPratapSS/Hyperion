@@ -33,14 +33,15 @@ import org.sharad.emify.core.navigation.Routes_Guide
 import org.sharad.emify.core.navigation.Routes_PrivacyPolicy
 import org.sharad.emify.core.navigation.Routes_Report
 import org.sharad.emify.core.navigation.Routes_TnC
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.features.home.presentation.screens.TopBar
 
 @Composable
 fun HelpSupportScreen(navController: NavController){
 
-    Box(modifier= Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
         contentAlignment = Alignment.Center){
-        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp),
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp))
         {
             TopBar("Help & Support", onBackClick =  {navController.popBackStack()})

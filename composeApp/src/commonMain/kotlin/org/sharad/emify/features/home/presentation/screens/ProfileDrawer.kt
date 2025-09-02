@@ -64,8 +64,12 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.sharad.emify.core.navigation.Routes_AboutEmifyMenu
+import org.sharad.emify.core.navigation.Routes_BankAccountScreen
 import org.sharad.emify.core.navigation.Routes_BusinessDetails
+import org.sharad.emify.core.navigation.Routes_EPansScreen
 import org.sharad.emify.core.navigation.Routes_HelpNSupport
+import org.sharad.emify.core.navigation.Routes_KYCScreen
+import org.sharad.emify.core.navigation.Routes_RNEScreen
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appBlue
 import org.sharad.emify.core.ui.theme.f7Gray
@@ -89,15 +93,23 @@ fun ProfileDrawer(navController: NavHostController) {
 fun ProfileOptionList(modifier: Modifier, navHostController: NavHostController){
 
     val menuOptions = listOf(
-        MenuOptions("EMify Plan", "Automate collections at ₹0!", Res.drawable.icon_plans,{}),
+        MenuOptions("EMify Plan", "Automate collections at ₹0!", Res.drawable.icon_plans,{
+            navHostController.navigate(Routes_EPansScreen)
+        }),
         MenuOptions("Business Details", "Showcase your business to customers", Res.drawable.icon_business,{navHostController.navigate(
             Routes_BusinessDetails
         )}),
-        MenuOptions("Bank Accounts", "Manage and set your primary bank", Res.drawable.icon_bank,{}),
-        MenuOptions("KYC - Profile Verification", "Faster settlements & priority support", Res.drawable.icon_kyc,{}),
+        MenuOptions("Bank Accounts", "Manage and set your primary bank", Res.drawable.icon_bank,{navHostController.navigate(
+            Routes_BankAccountScreen)}),
+        MenuOptions("KYC - Profile Verification", "Faster settlements & priority support", Res.drawable.icon_kyc,{
+            navHostController.navigate(Routes_KYCScreen)
+        }),
         MenuOptions("App Lock", "Add an extra layer of security", Res.drawable.icon_lock,{}),
-        MenuOptions("Refer & Earn", "Invite friends to EMIFY & earn rewards!", Res.drawable.icon_refer,{}),
-        MenuOptions("About EMify", "Terms, privacy policy, and legal info", Res.drawable.icon_aboutus,{navHostController.navigate(
+        MenuOptions("Refer & Earn", "Invite friends to EMIFY & earn rewards!", Res.drawable.icon_refer,{
+            navHostController.navigate(Routes_RNEScreen)
+        }),
+        MenuOptions("About EMify", "Terms, privacy policy, and legal info", Res.drawable.icon_aboutus,{
+            navHostController.navigate(
             Routes_AboutEmifyMenu)}),
         MenuOptions("Help & Support", "FAQs and customer support at your fingertips", Res.drawable.icon_help,{navHostController.navigate(
             Routes_HelpNSupport)})

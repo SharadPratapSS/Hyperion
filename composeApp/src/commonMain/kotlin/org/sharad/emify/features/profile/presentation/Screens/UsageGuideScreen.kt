@@ -1,5 +1,6 @@
 package org.sharad.emify.features.profile.presentation.Screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.features.home.presentation.screens.TopBar
 
 
@@ -19,16 +21,9 @@ fun GuideScreen(navController: NavController) {
     val placeholderEmailAddress = "[Insert Email Address]"
     val placeholderGooglePlay = "[Google Play Store]"
     val placeholderAppStore = "[Apple App Store]"
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 24.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
+        contentAlignment = Alignment.Center){
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             TopBar("Guide to use EMIFY App", onBackClick = { navController.popBackStack() })

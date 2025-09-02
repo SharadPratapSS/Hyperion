@@ -1,5 +1,6 @@
 package org.sharad.emify.features.profile.presentation.Screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,14 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.sharad.emify.core.ui.theme.Poppins
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.features.home.presentation.screens.TopBar
 
 @Composable
 fun GreivancePolicyScreen(navController: NavController){
     val date= "26/08/2025"
-    Box(modifier= Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
         contentAlignment = Alignment.Center){
-        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp),
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp))
         {
             TopBar("Grievance Policy", onBackClick =  {navController.popBackStack()})

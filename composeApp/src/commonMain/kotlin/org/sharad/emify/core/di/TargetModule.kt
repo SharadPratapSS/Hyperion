@@ -15,7 +15,9 @@ import org.sharad.emify.core.networking.repository.LoginRepository
 import org.sharad.emify.core.networking.repository.ProfileRepository
 import org.sharad.emify.core.util.AuthTokenNavigation
 import org.sharad.emify.features.profile.presentation.Screens.BusinessDetailsScreen
+import org.sharad.emify.features.profile.presentation.viewmodels.AddBankAccountViewModel
 import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenViewModel
+import org.sharad.emify.features.profile.presentation.viewmodels.KycScreenViewModel
 import org.sharad.emify.features.profile.presentation.viewmodels.ReportScreenViewModel
 
 expect val targetModule: Module
@@ -32,6 +34,8 @@ val sharedModule= module{
     viewModel{ OnboardingViewModel(get(),get()) }
     viewModel { BusinessScreenViewModel() }
     viewModel { ReportScreenViewModel() }
+    viewModel { AddBankAccountViewModel() }
+    viewModel { KycScreenViewModel() }
 }
 
 fun initializeKoin(

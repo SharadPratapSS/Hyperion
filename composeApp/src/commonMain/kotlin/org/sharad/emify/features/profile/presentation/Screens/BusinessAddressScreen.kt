@@ -1,5 +1,6 @@
 package org.sharad.emify.features.profile.presentation.Screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import emify.composeapp.generated.resources.arrow_down
 import emify.composeapp.generated.resources.arrow_right
 import org.koin.compose.viewmodel.koinViewModel
 import org.sharad.emify.core.ui.SharedComponents.BottomButton
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.core.util.ChangeBackPress
 import org.sharad.emify.features.home.presentation.screens.TopBar
 import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenViewModel
@@ -36,9 +38,9 @@ fun BusinessAddressScreen(backPress:()->Unit, viewModel: BusinessScreenViewModel
     val pincode by viewModel.pincode.collectAsStateWithLifecycle()
     val enabled by viewModel._addressButtonEnabled.collectAsStateWithLifecycle()
     ChangeBackPress(true, { backPress() })
-    Box(modifier= Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
         contentAlignment = Alignment.Center){
-        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp),
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp))
         {
             TopBar("Business Address", onBackClick =  {backPress()})

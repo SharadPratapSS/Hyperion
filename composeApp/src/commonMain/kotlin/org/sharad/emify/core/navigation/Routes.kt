@@ -57,4 +57,18 @@ data object Routes_Guide
 @Serializable
 data object Routes_Report
 
+@Serializable
+data object Routes_BankAccountScreen
+@Serializable
+data object Routes_AddBankAccountScreen
+
+@Serializable
+data object Routes_KYCScreen
+
+
+@Serializable
+data object Routes_EPansScreen
+@Serializable
+data object Routes_RNEScreen
+
 

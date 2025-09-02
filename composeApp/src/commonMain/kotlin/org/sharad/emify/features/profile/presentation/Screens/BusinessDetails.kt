@@ -70,6 +70,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.appGray
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.features.home.presentation.screens.DividerItem
 import org.sharad.emify.features.home.presentation.screens.TopBar
 import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenViewModel
@@ -101,9 +102,9 @@ fun DetailsScreen(viewModel: BusinessScreenViewModel,navController: NavControlle
     val businessTypes = listOf("Wholesaler", "Retailer", "Reseller", "Manufacturer", "Landlord", "Consultant/Advisor", "Service Provider", "Freelancer", "E-commerce Business", "Aggregator", "Franchise Owner", "Dropshipper", "Professional Firm", "Event Organiser")
     val businessCategories = listOf("FMCG", "Electronics", "Clothing & Apparel", "Industrial Supplies", "Agricultural Products", "Pharmaceuticals", "Furniture & Home Goods")
 
-    Box(modifier= Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
         contentAlignment = Alignment.Center){
-        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp),
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)) {
             TopBar("Business Details", {navController.popBackStack()})
             LazyColumn(modifier=Modifier.weight(1f),
@@ -218,6 +219,7 @@ fun FormItem(value: String, onValueChange: (String) -> Unit,
                                     text = placeholder,
                                     fontFamily = Poppins,
                                     fontSize = 16.sp,
+                                    fontWeight = FontWeight.Medium,
                                     color = Color(0xFFB5B5B5)
                                 )
                             }

@@ -44,6 +44,7 @@ import org.sharad.emify.core.navigation.Routes_GreivancePolicy
 import org.sharad.emify.core.navigation.Routes_PrivacyPolicy
 import org.sharad.emify.core.navigation.Routes_TnC
 import org.sharad.emify.core.ui.theme.Poppins
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.core.util.ChangeBackPress
 import org.sharad.emify.features.home.presentation.screens.TopBar
 import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenViewModel
@@ -51,9 +52,9 @@ import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenV
 @Composable
 fun AboutScreen(navController: NavController){
 
-    Box(modifier= Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
         contentAlignment = Alignment.Center){
-        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp),
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp))
         {
             TopBar("About EMIfy", onBackClick =  {navController.popBackStack()})

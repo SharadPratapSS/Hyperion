@@ -1,5 +1,6 @@
 package org.sharad.emify.features.profile.presentation.Screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.sharad.emify.core.ui.theme.Poppins
+import org.sharad.emify.core.ui.theme.f7Gray
 import org.sharad.emify.features.home.presentation.screens.TopBar
 
 @Composable
@@ -24,16 +26,9 @@ fun FAQScreen(navController: NavController) {
     val appStoreLink = "[Insert App Store Link]"
     val googlePlayLink = "[Insert Google Play Link]"
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 24.dp),
+    Box(modifier= Modifier.fillMaxSize().background(f7Gray),
+        contentAlignment = Alignment.Center){
+        Column(modifier=Modifier.fillMaxSize().padding(top = 24.dp, start = 20.dp, end = 20.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             TopBar("FAQs", onBackClick = { navController.popBackStack() })
