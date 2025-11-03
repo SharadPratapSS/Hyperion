@@ -61,7 +61,6 @@ class PhoneNumberScreenViewModel(private val repository: LoginRepository, privat
             when(response){
                 is NetworkResponse.Success->{
                     logDebug("Initiate Auth Success", response.data.toString())
-                    prefs.setUserId(response.data.otp.id)
                     _loading.value=false
                     navController.navigate(Routes_OTPInput(
                         _number.value,

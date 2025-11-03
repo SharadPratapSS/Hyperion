@@ -310,7 +310,7 @@ fun ProfileCard(img:String, name:String, phone:String){
 }
 
 @Composable
-fun TopBar(text:String, onBackClick:()-> Unit){
+fun TopBar(text:String, onBackClick:()-> Unit, icon: DrawableResource?=null, onIconClick:()->Unit= {}){
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
         Text(
             text = text,
@@ -339,6 +339,31 @@ fun TopBar(text:String, onBackClick:()-> Unit){
                     contentDescription = "back",
                     modifier = Modifier.padding(12.dp)
                 )
+            }
+        }
+
+        icon?.let{it->
+            Surface(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .size(48.dp),
+                shape = CircleShape,
+                color = Color.White,
+                shadowElevation = 4.dp
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                        .clickable(onClick = {
+                            onIconClick()
+                        }),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(it),
+                        contentDescription = "icon",
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package org.sharad.emify.core.ui.SharedComponents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,13 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sharad.emify.core.domain.Mandate.MandateItem
 import org.sharad.emify.core.ui.theme.Poppins
 import org.sharad.emify.core.ui.theme.f7Gray
-import org.sharad.emify.features.home.presentation.screens.Mandate
 
 @Composable
-fun MandateItemExpired(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+fun MandateItemExpired(mandate: MandateItem, onClick: (() -> Unit)? = null) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+        .then(onClick?.let { Modifier.clickable(onClick = it) } ?: Modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
@@ -64,7 +67,7 @@ fun MandateItemExpired(mandate: Mandate) {
                 style = MaterialTheme.typography.bodySmall
             )
             Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffD9D9D9))){
-                Text(mandate.status,
+                Text(mandate.status.name,
                     fontSize = 8.sp,
                     lineHeight = 8.sp,
                     fontFamily = Poppins,
@@ -76,8 +79,10 @@ fun MandateItemExpired(mandate: Mandate) {
     }
 }
 @Composable
-fun MandateItemActive(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+fun MandateItemActive(mandate: MandateItem, onClick: (() -> Unit)? = null) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+        .then(onClick?.let { Modifier.clickable(onClick = it) } ?: Modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
@@ -114,7 +119,7 @@ fun MandateItemActive(mandate: Mandate) {
                 style = MaterialTheme.typography.bodySmall
             )
             Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffDDFFDF))){
-                Text(mandate.status,
+                Text(mandate.status.name,
                     fontSize = 8.sp,
                     lineHeight = 8.sp,
                     fontFamily = Poppins,
@@ -127,8 +132,10 @@ fun MandateItemActive(mandate: Mandate) {
     }
 }
 @Composable
-fun MandateItemPending(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+fun MandateItemPending(mandate: MandateItem, onClick: (() -> Unit)? = null) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+        .then(onClick?.let { Modifier.clickable(onClick = it) } ?: Modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
@@ -165,7 +172,7 @@ fun MandateItemPending(mandate: Mandate) {
                 style = MaterialTheme.typography.bodySmall
             )
             Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffFFE69C))){
-                Text(mandate.status,
+                Text(mandate.status.name,
                     fontSize = 8.sp,
                     lineHeight = 8.sp,
                     fontFamily = Poppins,
@@ -178,8 +185,10 @@ fun MandateItemPending(mandate: Mandate) {
     }
 }
 @Composable
-fun MandateItemFinished(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+fun MandateItemFinished(mandate: MandateItem, onClick: (() -> Unit)? = null) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+        .then(onClick?.let { Modifier.clickable(onClick = it) } ?: Modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
@@ -216,7 +225,7 @@ fun MandateItemFinished(mandate: Mandate) {
                 style = MaterialTheme.typography.bodySmall
             )
             Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffDDFFDF))){
-                Text(mandate.status,
+                Text(mandate.status.name,
                     fontSize = 8.sp,
                     lineHeight = 8.sp,
                     fontFamily = Poppins,
@@ -230,8 +239,10 @@ fun MandateItemFinished(mandate: Mandate) {
 }
 
 @Composable
-fun MandateItemFailed(mandate: Mandate) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+fun MandateItemFailed(mandate: MandateItem, onClick: (() -> Unit)? = null) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+        .then(onClick?.let { Modifier.clickable(onClick = it) } ?: Modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(modifier = Modifier.size(44.dp).clip(CircleShape).background(f7Gray),
@@ -268,7 +279,7 @@ fun MandateItemFailed(mandate: Mandate) {
                 style = MaterialTheme.typography.bodySmall
             )
             Box(modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0xffFFC0C0))){
-                Text(mandate.status,
+                Text(mandate.status.name,
                     fontSize = 8.sp,
                     lineHeight = 8.sp,
                     fontFamily = Poppins,

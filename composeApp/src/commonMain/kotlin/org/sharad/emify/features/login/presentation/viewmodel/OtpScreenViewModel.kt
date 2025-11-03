@@ -72,9 +72,12 @@ class OtpScreenViewModel(private val repository: LoginRepository,
                 }
                 is NetworkResponse.Success<ProfileInfoDto> -> {
                     if (response.data.first_name==null){
+                        prefs.setUserId(userId)
                         navController.navigate(Routes_OnboardingForm){popUpTo(0){inclusive=true} }
                     }
                     else{
+                        prefs.setLoginStatus(true)
+                        prefs.setUserId(userId)
                         navController.navigate(Routes_WelcomeLoader){popUpTo(0){inclusive=true} }
                     }
                 }

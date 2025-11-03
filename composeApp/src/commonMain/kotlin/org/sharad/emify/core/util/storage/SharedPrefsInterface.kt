@@ -66,7 +66,7 @@ interface SharedPrefsInterface {
      * Retrieve a boolean value
      * @return The stored value or null if not found
      */
-    fun getBoolean(key: String): Boolean?
+    fun getBoolean(key: String): Boolean
 
     /**
      * Check if a key exists in storage

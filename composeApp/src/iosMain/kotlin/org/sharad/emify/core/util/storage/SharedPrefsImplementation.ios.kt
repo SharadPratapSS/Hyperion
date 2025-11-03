@@ -44,10 +44,10 @@ actual class SharedPrefsImplementation actual constructor(context: Any?) : Share
 
     actual override fun setBoolean(key: String, value: Boolean) = userDefaults.setBool(value, key)
 
-    actual override fun getBoolean(key: String): Boolean? = if (userDefaults.objectForKey(key) != null) {
+    actual override fun getBoolean(key: String): Boolean = if (userDefaults.objectForKey(key) != null) {
         userDefaults.boolForKey(key)
     } else {
-        null
+        false
     }
 
     actual override fun contains(key: String): Boolean = userDefaults.objectForKey(key) != null

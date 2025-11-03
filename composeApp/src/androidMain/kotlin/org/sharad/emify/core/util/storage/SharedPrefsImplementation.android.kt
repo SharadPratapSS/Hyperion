@@ -51,7 +51,7 @@ actual class SharedPrefsImplementation actual constructor(context: Any?) : Share
         prefs.edit { putBoolean(key, value) }
     }
 
-    actual override fun getBoolean(key: String): Boolean? {
+    actual override fun getBoolean(key: String): Boolean {
        return prefs.getBoolean(key, false)
     }
 

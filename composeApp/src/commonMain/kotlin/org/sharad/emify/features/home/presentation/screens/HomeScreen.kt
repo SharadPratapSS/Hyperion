@@ -44,6 +44,10 @@ import emify.composeapp.generated.resources.retail_banner
 import emify.composeapp.generated.resources.sub_banner
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.sharad.emify.core.domain.Mandate.MandateItem
+import org.sharad.emify.core.domain.Mandate.MandateStatus
+import org.sharad.emify.core.navigation.Routes_AllMandateScreen
+import org.sharad.emify.core.navigation.Routes_MandateCreationScreen
 import org.sharad.emify.core.navigation.Routes_ProfileMenu
 import org.sharad.emify.core.ui.SharedComponents.BottomButton
 import org.sharad.emify.core.ui.SharedComponents.MandateItemFailed
@@ -84,20 +88,22 @@ fun HomeScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            MandateList()
+            MandateList(navController)
 
             Spacer(modifier = Modifier.height(8.dp))
 
         }
         Box(modifier = Modifier.padding(vertical = 8.dp)){
-            BottomButton("+ Create New Mandate", onClick = {},true)
+            BottomButton("+ Create New Mandate", onClick = {
+                navController.navigate(Routes_MandateCreationScreen)
+            },true)
         }
     }
 }
 
 @Composable
-fun MandateList() {
-    val mandateList= Mandate("Sharad", "This is a sample mandate", "0", "10,000", "Expired")
+fun MandateList(navHostController: NavHostController) {
+    val mandateList= MandateItem("M001","Sharad", "This is a sample mandate", "0", "10,000", MandateStatus.Failed)
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)){
         Text(text = "Recent Mandate", style = MaterialTheme.typography.headlineMedium)
         Box()
@@ -135,6 +141,7 @@ fun MandateList() {
                 .clip(RoundedCornerShape(50))
                 .background(Color.White)
                 .border(width = 2.dp, color = grayBorder, shape = RoundedCornerShape(50))
+                .clickable(onClick = {navHostController.navigate(Routes_AllMandateScreen)})
             ){
                 Text(
                     "View More",
@@ -298,12 +305,4 @@ data class Banner(
     val image: DrawableResource,
     val backgroundColor: Color,
     val headColor: Color
-)
-
-data class Mandate(
-    val name: String,
-    val content: String,
-    val paid: String,
-    val unpaid: String,
-    val status: String
 )

@@ -18,3 +18,5 @@ val f7Gray= Color(0xffF7F7F7)
 val appGray= Color(0xff909090)
 
 val grayBorder= Color(0xFFDCE2EF)
+
+val shadowSpot= Color(0xFFDEE2F6BF)

@@ -3,7 +3,6 @@ package org.sharad.emify.core.ui.SharedComponents
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,50 +30,71 @@ import org.jetbrains.compose.resources.painterResource
 import org.sharad.emify.core.ui.theme.Poppins
 
 @Composable
-fun TextButtonTextField(
-    value: String, onValueChange: (String) -> Unit,
-    placeholder: String,
-    label: String? = null,
-    enable: Boolean = true,
-    textIcon: String? = null,
-    textIconEnabled: Boolean = true,
-    iconClick: (() -> Unit)? = null,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+fun NormalTextField(value: String, onValueChange: (String) -> Unit,
+                    placeholder: String,
+                    label: String?=null,
+                    enable:Boolean=true,
+                    icon: DrawableResource ?=null,
+                    iconClick: (() -> Unit)?=null,
+                    keyboardOptions: KeyboardOptions?=null,
+                    showError : Boolean?=null
 ){
     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        label?.let{it
-            Text(
-                text = it,
-                modifier = Modifier.fillMaxWidth().padding(start = 2.dp),
-                fontFamily = Poppins,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-            )
+        Row(modifier=Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom){
+            label?.let {
+                it
+                Text(
+                    text = it,
+                    modifier = Modifier.fillMaxWidth().padding(start = 2.dp),
+                    fontFamily = Poppins,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+            }
+
+            showError?.let {
+                if (it) {
+                    Text(
+                        text = "Invalid Entry",
+                        fontFamily = Poppins,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.Red
+                    )
+                }
+            }
+
         }
 
         BasicTextField(
             enabled = enable,
             value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
+            onValueChange = onValueChange,
             singleLine = true,
-            keyboardOptions = keyboardOptions,
             textStyle = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = Poppins,
                 color = Color.Black
             ),
+            keyboardOptions = keyboardOptions?: KeyboardOptions.Default,
             modifier = Modifier
 //                    .padding(top = 4.dp, bottom = 12.dp)
                 .shadow(
-                    elevation = 12.dp,
+                    elevation = 10.dp,
                     shape = RoundedCornerShape(12.dp),
                     spotColor = Color(0xFFDEE2F6BF)
                 )
                 .fillMaxWidth()
                 .height(52.dp)
-                .background(Color.White, RoundedCornerShape(12.dp)),
+                .background(Color.White, RoundedCornerShape(12.dp))
+                .then(
+                    if (icon != null) {
+                        Modifier.clickable(onClick = { iconClick?.invoke() })
+                    } else
+                        Modifier
+                ),
             decorationBox = { innerTextField ->
                 Row(
                     modifier = Modifier.fillMaxSize(),
@@ -91,24 +111,17 @@ fun TextButtonTextField(
                                 text = placeholder,
                                 fontFamily = Poppins,
                                 fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium,
+                                maxLines = 1,
                                 color = Color(0xFFB5B5B5)
                             )
                         }
                         innerTextField()
                     }
-                    textIcon?.let { it ->
-                        Text(
-                            text=it,
-                            fontFamily = Poppins,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (textIconEnabled) Color(0xFF1F5EE6) else Color(0xFFB5B5B5),
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp)
-                                .clickable(indication = null, interactionSource = MutableInteractionSource()) {
-                                    if (textIconEnabled){ iconClick?.invoke() }
-                                }
+                    icon?.let { it ->
+                        Image(
+                            painter = painterResource(it),
+                            contentDescription = "icon",
+                            modifier = Modifier.padding(horizontal = 16.dp).size(16.dp)
                         )
                     }
                 }

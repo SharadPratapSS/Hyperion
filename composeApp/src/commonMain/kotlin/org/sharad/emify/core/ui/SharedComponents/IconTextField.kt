@@ -3,7 +3,6 @@ package org.sharad.emify.core.ui.SharedComponents
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +23,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
@@ -31,15 +31,14 @@ import org.jetbrains.compose.resources.painterResource
 import org.sharad.emify.core.ui.theme.Poppins
 
 @Composable
-fun TextButtonTextField(
-    value: String, onValueChange: (String) -> Unit,
-    placeholder: String,
-    label: String? = null,
-    enable: Boolean = true,
-    textIcon: String? = null,
-    textIconEnabled: Boolean = true,
-    iconClick: (() -> Unit)? = null,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+fun IconTextField(value: String,
+                 onValueChange: (String) -> Unit,
+                 placeholder: String,
+                 label: String?=null,
+                 enable:Boolean=true,
+                 icon: DrawableResource,
+                 iconClick: (() -> Unit)?=null,
+                 keyboardOptions: KeyboardOptions?=null,
 ){
     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         label?.let{it
@@ -55,26 +54,30 @@ fun TextButtonTextField(
         BasicTextField(
             enabled = enable,
             value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
+            onValueChange = onValueChange,
             singleLine = true,
-            keyboardOptions = keyboardOptions,
             textStyle = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = Poppins,
                 color = Color.Black
             ),
+            keyboardOptions = keyboardOptions?: KeyboardOptions.Default,
             modifier = Modifier
 //                    .padding(top = 4.dp, bottom = 12.dp)
                 .shadow(
-                    elevation = 12.dp,
+                    elevation = 10.dp,
                     shape = RoundedCornerShape(12.dp),
                     spotColor = Color(0xFFDEE2F6BF)
                 )
                 .fillMaxWidth()
                 .height(52.dp)
-                .background(Color.White, RoundedCornerShape(12.dp)),
+                .background(Color.White, RoundedCornerShape(12.dp))
+                .then(
+                    if (icon != null) {
+                        Modifier.clickable(onClick = { iconClick?.invoke() })
+                    } else
+                        Modifier
+                ),
             decorationBox = { innerTextField ->
                 Row(
                     modifier = Modifier.fillMaxSize(),
@@ -91,26 +94,18 @@ fun TextButtonTextField(
                                 text = placeholder,
                                 fontFamily = Poppins,
                                 fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 color = Color(0xFFB5B5B5)
                             )
                         }
                         innerTextField()
                     }
-                    textIcon?.let { it ->
-                        Text(
-                            text=it,
-                            fontFamily = Poppins,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (textIconEnabled) Color(0xFF1F5EE6) else Color(0xFFB5B5B5),
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp)
-                                .clickable(indication = null, interactionSource = MutableInteractionSource()) {
-                                    if (textIconEnabled){ iconClick?.invoke() }
-                                }
-                        )
-                    }
+                    Image(
+                        painter = painterResource(icon),
+                        contentDescription = "icon",
+                        modifier = Modifier.padding(horizontal = 16.dp).size(20.dp),
+                    )
                 }
             }
         )

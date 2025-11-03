@@ -14,6 +14,11 @@ import org.sharad.emify.features.login.presentation.viewmodel.PhoneNumberScreenV
 import org.sharad.emify.core.networking.repository.LoginRepository
 import org.sharad.emify.core.networking.repository.ProfileRepository
 import org.sharad.emify.core.util.AuthTokenNavigation
+import org.sharad.emify.features.MandateDetailsScreen.presentation.viewmodel.AllMandateScreenViewModel
+import org.sharad.emify.features.MandateDetailsScreen.presentation.viewmodel.MandateDetailsViewModel
+import org.sharad.emify.features.mandateCreation.presentation.viewModels.MandateCreationViewModel
+import org.sharad.emify.features.mandateCreation.presentation.viewModels.SubscriptionMandateScreenViewModel
+import org.sharad.emify.features.mandateCreation.presentation.viewModels.WholeMandateScreenViewModel
 import org.sharad.emify.features.profile.presentation.Screens.BusinessDetailsScreen
 import org.sharad.emify.features.profile.presentation.viewmodels.AddBankAccountViewModel
 import org.sharad.emify.features.profile.presentation.viewmodels.BusinessScreenViewModel
@@ -36,6 +41,11 @@ val sharedModule= module{
     viewModel { ReportScreenViewModel() }
     viewModel { AddBankAccountViewModel() }
     viewModel { KycScreenViewModel() }
+    viewModel { MandateCreationViewModel() }
+    viewModel { SubscriptionMandateScreenViewModel() }
+    viewModel { WholeMandateScreenViewModel() }
+    viewModel { AllMandateScreenViewModel() }
+    viewModel {(id:String) -> MandateDetailsViewModel(id) }
 }
 
 fun initializeKoin(

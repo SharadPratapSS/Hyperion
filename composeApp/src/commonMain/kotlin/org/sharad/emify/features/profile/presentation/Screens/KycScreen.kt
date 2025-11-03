@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -28,7 +29,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -135,7 +139,7 @@ fun BusinessSelection(viewModel: KycScreenViewModel) {
 
                 TextButtonTextField(
                     value = gstCertificate?.toString() ?: "",
-                    onValueChange = { viewModel.updateAdhaarNumber(it) },
+                    onValueChange = {  },
                     label = "Upload GST Certificate",
                     placeholder = "Upload Document",
                     textIcon = "Upload",
@@ -144,24 +148,33 @@ fun BusinessSelection(viewModel: KycScreenViewModel) {
                 )
                 TextButtonTextField(
                     value = adhaar,
-                    onValueChange = { viewModel.updateAdhaarNumber(it) },
+                    onValueChange = {
+                        if (it.length <= 12 && it.all { char -> char.isDigit()})
+                        viewModel.updateAdhaarNumber(it)
+                                    },
                     label = "Verify Aadhaar Card",
                     placeholder = "Aadhaar Card Number",
                     textIcon = "Verify",
                     iconClick = {
                         viewModel.showAdhaarVerificationField(true)
-                    }
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    textIconEnabled = adhaar.isNotEmpty() && adhaar.length == 12
                 )
 
                 TextButtonTextField(
                     value = pan,
-                    onValueChange = { viewModel.updatePanNumber(it) },
+                    onValueChange = {
+                        val format= it.trim().toUpperCase(Locale.current)
+                        viewModel.updatePanNumber(format)
+                                    },
                     label = "Verify PAN Card",
                     placeholder = "PAN Card Number",
                     textIcon = "Verify",
                     iconClick = {
                         viewModel.showPanVerificationField(true)
-                    }
+                    },
+                    textIconEnabled = pan.isNotEmpty(),
                 )
                 TextButtonTextField(
                     value = panSelfie?.toString() ?: "",
@@ -189,23 +202,32 @@ fun IndividualSelection(viewModel: KycScreenViewModel){
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         TextButtonTextField(
             value = adhaar,
-            onValueChange = {viewModel.updateAdhaarNumber(it)},
+            onValueChange = {
+                if (it.length <= 12 && it.all { char -> char.isDigit()})
+                    viewModel.updateAdhaarNumber(it)
+            },
             label = "Verify Aadhaar Card",
             placeholder = "Aadhaar Card Number",
             textIcon = "Verify",
             iconClick = {
                 viewModel.showAdhaarVerificationField(true)
-            }
-        )
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            textIconEnabled = adhaar.isNotEmpty() && adhaar.length == 12
+            )
         TextButtonTextField(
             value = pan,
-            onValueChange = {viewModel.updatePanNumber(it)},
+            onValueChange = {
+                val format= it.trim().toUpperCase(Locale.current)
+                viewModel.updatePanNumber(format)
+            },
             label = "Verify PAN Card",
             placeholder = "PAN Card Number",
             textIcon = "Verify",
             iconClick = {
                 viewModel.showPanVerificationField(true)
-            }
+            },
+            textIconEnabled = pan.isNotEmpty(),
         )
         TextButtonTextField(
             value = panSelfie?.toString() ?: "",

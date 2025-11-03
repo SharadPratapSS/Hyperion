@@ -12,7 +12,7 @@ expect class SharedPrefsImplementation(context: Any?=null): SharedPrefsInterface
     override fun setDouble(key: String, value: Double)
     override fun getDouble(key: String): Double?
     override fun setBoolean(key: String, value: Boolean)
-    override fun getBoolean(key: String): Boolean?
+    override fun getBoolean(key: String): Boolean
     override fun contains(key: String): Boolean
     override fun remove(key: String)
     override fun clear()

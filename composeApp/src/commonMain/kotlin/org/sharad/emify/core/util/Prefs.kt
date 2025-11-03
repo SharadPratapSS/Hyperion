@@ -5,7 +5,7 @@ import org.sharad.emify.core.util.storage.SharedPrefsInterface
 class Prefs(private val SharedPrefs: SharedPrefsInterface) {
 
     fun getLoginStatus():Boolean{
-        return SharedPrefs.getBoolean("LOGIN_STATUS") ?: false
+        return SharedPrefs.getBoolean("LOGIN_STATUS")
     }
 
     fun setLoginStatus(data: Boolean){

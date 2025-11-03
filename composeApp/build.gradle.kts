@@ -82,6 +82,8 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
 
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+
             implementation("dev.icerock.moko:permissions-compose:0.19.1")
         }
 
